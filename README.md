@@ -49,7 +49,7 @@ Because buffering all readings in RAM would exceed microcontroller SRAM capacity
   - Parachute Deployment: Detected at $t = 8.1980\text{ s}$ via residual departure ($> 15.0\text{ m}$) across 3 consecutive readings.
   - Descent Velocity & Landing: $v_{\text{descent}} = -2.0005\text{ m/s}$, Touchdown predicted at $493.3004\text{ s}$.
 
-### Implementation Levels (`catch-the-rocket/src/`)
+### Implementation Progression (`catch-the-rocket/src/`)
 1. **Level 0:** Baseline telemetry receiver & 44-byte state structure.
 2. **Level 1:** Linear least-squares descent regression & touchdown prediction.
 3. **Level 2:** Quadratic coast ballistics, gravity, and apogee extraction.
@@ -74,6 +74,17 @@ Because buffering all readings in RAM would exceed microcontroller SRAM capacity
 - **Fixed-Point Q16.16:** Employs integer arithmetic to achieve floating-point resolution with integer execution speed and an absolute error of only $6.6 \times 10^{-7}$.
 - **Serialization & Print Overhead:** Text formatting (`dtostrf`) costs **6,030 cycles**, while transmitting 1 byte over UART at 115,200 baud consumes **~20,833 cycles** ($86.8\ \mu\text{s}$), demonstrating why serial I/O must never run inside time-critical control loops.
 - **Real-Time Sensor Pipeline:** A multi-stage digital filter pipeline benchmarked against strict sampling deadlines: Integer (~220 cycles) and Float (~380 cycles) easily meet 10 kHz, 50 kHz, and 100 kHz deadlines, whereas Double (~3,450 cycles) fails 50 kHz and 100 kHz.
+
+### Code & Experiment Navigator (`speed-of-numbers/code/`)
+- 📁 [**`code/exp_1/`**](speed-of-numbers/code/exp_1/): 32-bit addition, 10 vs 1000 repetitions, volatile vs non-volatile benchmarks.
+- 📁 [**`code/exp_2/`**](speed-of-numbers/code/exp_2/): Integer width comparisons (`int8_t`, `int16_t`, `int32_t`, `int64_t`).
+- 📁 [**`code/exp_3/`**](speed-of-numbers/code/exp_3/): Single-precision FPU vs double-precision software emulation (Addition, Division, Literal, Multiplication, Sqrt).
+- 📁 [**`code/exp_4/`**](speed-of-numbers/code/exp_4/): Bit tricks vs arithmetic operators & Xtensa LX6 disassembly analysis.
+- 📁 [**`code/exp_5/`**](speed-of-numbers/code/exp_5/): Q16.16 fixed-point arithmetic implementation.
+- 📁 [**`code/exp_6/`**](speed-of-numbers/code/exp_6/): Hidden costs of text formatting (`itoa`, `dtostrf`) & Serial UART transmission.
+- 📁 [**`code/final_challenge/`**](speed-of-numbers/code/final_challenge/): Real-time multi-stage sensor pipeline implementations.
+- 📁 [**`raw_output/`**](speed-of-numbers/raw_output/): All raw Serial Monitor logs collected from the ESP32.
+- 📁 [**`reports/`**](speed-of-numbers/reports/): Complete academic research Word reports.
 
 *Read the complete experimental results in [`speed-of-numbers/README.md`](speed-of-numbers/README.md).*
 
@@ -103,6 +114,7 @@ fundamentals-of-computer-architecture/
 │
 └── speed-of-numbers/                                  # 2nd: Speed of Numbers Microbenchmarks
     ├── README.md                                      # Project documentation & experimental findings
+    ├── Team_Numerix_report.docx                       # Consolidated master research report
     ├── code/                                          # Standalone sketches (Experiments 1 to 6 & Challenge)
     │   ├── exp_1/                                     # 32-bit addition & stopwatch calibration
     │   ├── exp_2/                                     # Data type widths (int8, int16, int32, int64)
@@ -137,7 +149,7 @@ fundamentals-of-computer-architecture/
 Each sketch in both projects is organized into its own self-contained sketch folder matching the `.ino` filename:
 1. Open the `.ino` sketch inside the target project:
    - *Catch the Rocket:* Open `catch-the-rocket/src/level-5-final/CatchTheRocket_Level5_Final/CatchTheRocket_Level5_Final.ino`.
-   - *Speed of Numbers:* Open `speed-of-numbers/code/exp_3/Experiment_03_Addition/Experiment_03_Addition.ino`.
+   - *Speed of Numbers:* Open any experiment, e.g., `speed-of-numbers/code/exp_3/Experiment_03_Addition/Experiment_03_Addition.ino`.
 2. Select your ESP32 board and COM port in the Arduino IDE.
 3. Click **Upload** ($\rightarrow$).
 4. Open the **Serial Monitor** at **115200 baud** and press the **EN / RST** button on the ESP32.
