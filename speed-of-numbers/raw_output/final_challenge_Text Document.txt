@@ -1,0 +1,53 @@
+We expect the integer version to be the fastest because it avoids floating-point calculations. We expect the float version to be faster than the double version. We expect the double version to give the most accurate result and use it as the reference for measuring error. We expect all three versions to be fast enough for 10 kHz, but the difference in processing time may become more important at 50 kHz and 100 kHz.
+
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd0_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4876
+ho 0 tail 12 room 4
+load:0x40078000,len:16532
+load:0x40080400,len:3500
+entry 0x400805b4
+
+FINAL CHALLENGE - LATENCY BUDGET
+CPU Frequency: 240 MHz
+
+SAMPLE RATE BUDGET
+Cycles available at 10 kHz: 24000.00
+Cycles available at 50 kHz: 4800.00
+Cycles available at 100 kHz: 2400.00
+
+ANALOG READ
+analogRead cycles/sample: 9987
+
+PIPELINE TIMING
+Double pipeline cycles/sample: 1672
+Float pipeline cycles/sample: 135
+Integer pipeline cycles/sample: 29
+
+FINAL OUTPUT CHECK
+Double final moving average: 487.142857143
+Float final moving average: 487.141876221
+Integer final moving average: 486
+
+EXHAUSTIVE ERROR TEST
+Maximum float error (mV): 0.000121623
+Raw value at maximum float error: 2542
+Maximum integer error (mV): 0.996336996
+Raw value at maximum integer error: 716
+
+LATENCY CHECK
+Double fits 10 kHz: YES
+Float fits 10 kHz: YES
+Integer fits 10 kHz: YES
+Double fits 50 kHz: YES
+Float fits 50 kHz: YES
+Integer fits 50 kHz: YES
+Double fits 100 kHz: YES
+Float fits 100 kHz: YES
+Integer fits 100 kHz: YES
+
+END FINAL CHALLENGE

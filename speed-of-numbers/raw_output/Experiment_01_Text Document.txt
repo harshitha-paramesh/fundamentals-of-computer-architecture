@@ -1,0 +1,76 @@
+==================================================
+THE SPEED OF NUMBERS
+EXPERIMENT 1 - 32-BIT INTEGER ADDITION
+RAW SERIAL MONITOR OUTPUT
+==================================================
+
+
+==================================================
+TEST 1: VOLATILE, 1000 REPETITIONS
+==================================================
+
+CPU Frequency: 240 MHz
+Repetitions: 1000
+
+Trial 1:
+Baseline cycles: 4999
+Total cycles: 13284
+Operation cycles: 8285
+Cycles per addition: 8.28
+Final a: 20010
+
+Trial 2:
+Baseline cycles: 4999
+Total cycles: 13284
+Operation cycles: 8285
+Cycles per addition: 8.28
+Final a: 20010
+
+Trial 3:
+Baseline cycles: 4999
+Total cycles: 13284
+Operation cycles: 8285
+Cycles per addition: 8.28
+Final a: 20010
+
+
+==================================================
+TEST 2: VOLATILE, 10 REPETITIONS
+==================================================
+
+CPU Frequency: 240 MHz
+Repetitions: 10
+
+Trial 1:
+Baseline cycles: 49
+Total cycles: 129
+Operation cycles: 80
+Cycles per addition: 8.00
+Final a: 210
+
+Trial 2:
+Baseline cycles: 49
+Total cycles: 129
+Operation cycles: 80
+Cycles per addition: 8.00
+Final a: 210
+
+Trial 3:
+Baseline cycles: 49
+Total cycles: 129
+Operation cycles: 80
+Cycles per addition: 8.00
+Final a: 210
+
+
+==================================================
+TEST 3: NON-VOLATILE, 1000 REPETITIONS
+==================================================
+
+CPU Frequency: 240 MHz
+Repetitions: 1000
+Baseline cycles: 5282
+Total cycles: 2
+Operation cycles: 4294962016
+Cycles per addition: 4294962.00
+Final a: 20010

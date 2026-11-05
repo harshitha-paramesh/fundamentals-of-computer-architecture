@@ -1,0 +1,82 @@
+ets Jul 29 2019 122146
+
+rst0x1 (POWERON_RESET),boot0x13 (SPI_FAST_FLASH_BOOT)
+configsip 0, SPIWP0xee
+clk_drv0x00,q_drv0x00,cs0_drv0x00,hd0_drv0x00,wp_drv0x00
+modeDIO, clock div1
+load0x3fff0030,len4876
+load0x40078000,len16532
+load0x40080400,len3500
+entry 0x400805b4
+
+FINAL CHALLENGE - CORRECTED TIMING
+CPU Frequency 240 MHz
+
+SAMPLE RATE BUDGET
+Cycles available at 10 kHz 24000.00
+Cycles available at 50 kHz 4800.00
+Cycles available at 100 kHz 2400.00
+
+CORRECTED TIMING
+Repetitions per trial 1000
+Trials 3
+
+EMPTY LOOP BASELINE
+Trial 1 4999
+Trial 2 4999
+Trial 3 4999
+
+ANALOG READ CYCLESSAMPLE
+Trial 1 10299
+Trial 2 10246
+Trial 3 10241
+
+DOUBLE PIPELINE CYCLESSAMPLE
+Trial 1 1666
+Trial 2 1665
+Trial 3 1665
+
+FLOAT PIPELINE CYCLESSAMPLE
+Trial 1 132
+Trial 2 128
+Trial 3 129
+
+INTEGER PIPELINE CYCLESSAMPLE
+Trial 1 23
+Trial 2 22
+Trial 3 22
+
+AVERAGE CORRECTED TIMING
+Average analogRead cyclessample 10262.00
+Average double pipeline cyclessample 1665.33
+Average float pipeline cyclessample 129.67
+Average integer pipeline cyclessample 22.33
+
+FINAL OUTPUT CHECK
+Double final moving average 487.142857143
+Float final moving average 487.141876221
+Integer final moving average 486
+
+EXHAUSTIVE ERROR TEST
+Maximum float error (mV) 0.000121623
+Raw value at maximum float error 2542
+Maximum integer error (mV) 0.996336996
+Raw value at maximum integer error 716
+
+COMPLETE SENSOR WORKLOAD
+Double total cyclessample 11927.33
+Float total cyclessample 10391.67
+Integer total cyclessample 10284.33
+
+LATENCY CHECK - COMPLETE WORKLOAD
+Double fits 10 kHz YES
+Float fits 10 kHz YES
+Integer fits 10 kHz YES
+Double fits 50 kHz NO
+Float fits 50 kHz NO
+Integer fits 50 kHz NO
+Double fits 100 kHz NO
+Float fits 100 kHz NO
+Integer fits 100 kHz NO
+
+END FINAL CHALLENGE

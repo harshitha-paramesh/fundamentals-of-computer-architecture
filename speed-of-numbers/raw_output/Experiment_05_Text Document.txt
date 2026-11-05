@@ -1,0 +1,71 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4876
+load:0x40078000,len:16532
+load:0x40080400,len:3500
+entry 0x400805b4
+EXPERIMENT 5 - FIXED POINT VS FLOAT
+
+CPU Frequency: 240 MHz
+
+Q16.16 REPRESENTATION
+3.75 fixed: 245760
+-1.25 fixed: -81920
+3.75 recovered: 3.75000000
+-1.25 recovered: -1.25000000
+Q16.16 minimum: -32768.00000000
+Q16.16 maximum: 32767.99998474
+
+ACCURACY TEST
+True addition: 3.5801000000
+Fixed addition: 3.5800993388
+Float addition: 3.5801000595
+Fixed addition error: 0.0000006612
+Float addition error: 0.0000000595
+
+True multiplication: 2.8956432000
+Fixed multiplication: 2.8956298828
+Float multiplication: 2.8956432343
+Fixed multiplication error: 0.0000133172
+Float multiplication error: 0.0000000343
+
+True division: 0.5263045703
+Fixed division: 0.5262908936
+Float division: 0.5263046026
+Fixed division error: 0.0000136767
+Float division error: 0.0000000324
+
+TIMING
+Repetitions per trial: 1000
+Trials: 3
+
+Fixed-point addition cycles/op:
+0.72
+1.00
+1.00
+Fixed-point multiplication cycles/op:
+1.01
+1.01
+1.01
+Fixed-point division cycles/op:
+1.10
+1.10
+1.10
+Float addition cycles/op:
+1.28
+1.00
+1.00
+Float multiplication cycles/op:
+1.29
+1.00
+1.00
+Float division cycles/op:
+1.05
+1.05
+1.05
+
+END EXPERIMENT 5

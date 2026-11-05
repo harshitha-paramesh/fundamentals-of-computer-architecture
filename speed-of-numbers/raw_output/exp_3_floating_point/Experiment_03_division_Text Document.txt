@@ -1,0 +1,30 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4876
+ho 0 tail 12 room 4
+load:0x40078000,len:16532
+load:0x40080400,len:3500
+entry 0x400805b4
+EXPERIMENT 3 - FLOAT vs DOUBLE - DIVISION
+CPU Frequency: 240 MHz
+Repetitions: 1000
+
+Trial 1 - Float division: 53.94 cycles/op
+Trial 1 - Double division: 643.11 cycles/op
+Trial 1 - Int32 division: 10.57 cycles/op
+
+Trial 2 - Float division: 52.94 cycles/op
+Trial 2 - Double division: 642.78 cycles/op
+Trial 2 - Int32 division: 10.01 cycles/op
+
+Trial 3 - Float division: 52.00 cycles/op
+Trial 3 - Double division: 642.82 cycles/op
+Trial 3 - Int32 division: 10.01 cycles/op
+
+Final float result: 40.20
+Final double result: 4.20
+Final int32 result: 50

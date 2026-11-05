@@ -1,0 +1,260 @@
+========================================
+EXPERIMENT 2 - IS SMALLER FASTER?
+========================================
+CPU Frequency: 240 MHz
+Repetitions: 1000
+Trials: 3
+
+----------------------------------------
+TRIAL 1
+----------------------------------------
+ADDITION
+ADD int8_t
+Baseline cycles: 4999
+Total cycles: 14284
+Operation cycles: 9285
+Cycles per operation: 9.28
+
+ADD int16_t
+Baseline cycles: 4999
+Total cycles: 15179
+Operation cycles: 10180
+Cycles per operation: 10.18
+
+ADD int32_t
+Baseline cycles: 4999
+Total cycles: 13000
+Operation cycles: 8001
+Cycles per operation: 8.00
+
+ADD int64_t
+Baseline cycles: 4999
+Total cycles: 34566
+Operation cycles: 29567
+Cycles per operation: 29.57
+
+MULTIPLICATION
+MUL int8_t
+Baseline cycles: 4999
+Total cycles: 15284
+Operation cycles: 10285
+Cycles per operation: 10.28
+
+MUL int16_t
+Baseline cycles: 4999
+Total cycles: 15285
+Operation cycles: 10286
+Cycles per operation: 10.29
+
+MUL int32_t
+Baseline cycles: 4999
+Total cycles: 14179
+Operation cycles: 9180
+Cycles per operation: 9.18
+
+MUL int64_t
+Baseline cycles: 4999
+Total cycles: 52848
+Operation cycles: 47849
+Cycles per operation: 47.85
+
+DIVISION
+DIV int8_t
+Baseline cycles: 4999
+Total cycles: 22483
+Operation cycles: 17484
+Cycles per operation: 17.48
+
+DIV int16_t
+Baseline cycles: 4999
+Total cycles: 21570
+Operation cycles: 16571
+Cycles per operation: 16.57
+
+DIV int32_t
+Baseline cycles: 4999
+Total cycles: 16282
+Operation cycles: 11283
+Cycles per operation: 11.28
+
+DIV int64_t
+Baseline cycles: 4999
+Total cycles: 113566
+Operation cycles: 108567
+Cycles per operation: 108.57
+
+DIV uint32_t
+Baseline cycles: 4999
+Total cycles: 16001
+Operation cycles: 11002
+Cycles per operation: 11.00
+
+
+----------------------------------------
+TRIAL 2
+----------------------------------------
+ADDITION
+ADD int8_t
+Baseline cycles: 4999
+Total cycles: 14000
+Operation cycles: 9001
+Cycles per operation: 9.00
+
+ADD int16_t
+Baseline cycles: 4999
+Total cycles: 14988
+Operation cycles: 9989
+Cycles per operation: 9.90
+
+ADD int32_t
+Baseline cycles: 4999
+Total cycles: 13000
+Operation cycles: 8001
+Cycles per operation: 8.00
+
+ADD int64_t
+Baseline cycles: 4999
+Total cycles: 34002
+Operation cycles: 29003
+Cycles per operation: 29.00
+
+MULTIPLICATION
+MUL int8_t
+Baseline cycles: 4999
+Total cycles: 15000
+Operation cycles: 10001
+Cycles per operation: 10.00
+
+MUL int16_t
+Baseline cycles: 4999
+Total cycles: 15001
+Operation cycles: 10002
+Cycles per operation: 10.00
+
+MUL int32_t
+Baseline cycles: 4999
+Total cycles: 13000
+Operation cycles: 8001
+Cycles per operation: 8.00
+
+MUL int64_t
+Baseline cycles: 4999
+Total cycles: 52001
+Operation cycles: 47002
+Cycles per operation: 47.00
+
+DIVISION
+DIV int8_t
+Baseline cycles: 4999
+Total cycles: 21000
+Operation cycles: 16001
+Cycles per operation: 16.00
+
+DIV int16_t
+Baseline cycles: 4999
+Total cycles: 21002
+Operation cycles: 16003
+Cycles per operation: 16.00
+
+DIV int32_t
+Baseline cycles: 4999
+Total cycles: 16000
+Operation cycles: 11001
+Cycles per operation: 11.00
+
+DIV int64_t
+Baseline cycles: 4999
+Total cycles: 113899
+Operation cycles: 108900
+Cycles per operation: 108.90
+
+DIV uint32_t
+Baseline cycles: 4999
+Total cycles: 16001
+Operation cycles: 11002
+Cycles per operation: 11.00
+
+
+----------------------------------------
+TRIAL 3
+----------------------------------------
+ADDITION
+ADD int8_t
+Baseline cycles: 4999
+Total cycles: 14000
+Operation cycles: 9001
+Cycles per operation: 9.00
+
+ADD int16_t
+Baseline cycles: 4999
+Total cycles: 14001
+Operation cycles: 9002
+Cycles per operation: 9.00
+
+ADD int32_t
+Baseline cycles: 4999
+Total cycles: 13000
+Operation cycles: 8001
+Cycles per operation: 8.00
+
+ADD int64_t
+Baseline cycles: 4999
+Total cycles: 34900
+Operation cycles: 29901
+Cycles per operation: 29.90
+
+MULTIPLICATION
+MUL int8_t
+Baseline cycles: 4999
+Total cycles: 15000
+Operation cycles: 10001
+Cycles per operation: 10.00
+
+MUL int16_t
+Baseline cycles: 4999
+Total cycles: 15001
+Operation cycles: 10002
+Cycles per operation: 10.00
+
+MUL int32_t
+Baseline cycles: 4999
+Total cycles: 13000
+Operation cycles: 8001
+Cycles per operation: 8.00
+
+MUL int64_t
+Baseline cycles: 4999
+Total cycles: 52001
+Operation cycles: 47002
+Cycles per operation: 47.00
+
+DIVISION
+DIV int8_t
+Baseline cycles: 4999
+Total cycles: 21000
+Operation cycles: 16001
+Cycles per operation: 16.00
+
+DIV int16_t
+Baseline cycles: 4999
+Total cycles: 21002
+Operation cycles: 16003
+Cycles per operation: 16.00
+
+DIV int32_t
+Baseline cycles: 4999
+Total cycles: 16000
+Operation cycles: 11001
+Cycles per operation: 11.00
+
+DIV int64_t
+Baseline cycles: 4999
+Total cycles: 113899
+Operation cycles: 108900
+Cycles per operation: 108.90
+
+DIV uint32_t
+Baseline cycles: 4999
+Total cycles: 16001
+Operation cycles: 11002
+Cycles per operation: 11.00

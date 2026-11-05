@@ -1,0 +1,69 @@
+EXPERIMENT 6 - HIDDEN COST OF PRINTING
+CPU Frequency: 240 MHz
+
+CONVERSION TO TEXT
+Repetitions: 1000
+Integer conversion cycles/op: 1934
+Float conversion cycles/op: 6030
+
+SERIAL TRANSMISSION
+Baud rate: 115200
+Measured one-character transmission time (us): A101
+
+PRINTING 10 VALUES
+123456
+123456
+123456
+123456
+123456
+123456
+123456
+123456
+123456
+123456
+1E240
+1E240
+1E240
+1E240
+1E240
+1E240
+1E240
+1E240
+1E240
+1E240
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+11110001001000000
+
+Decimal print time for 10 values (us): 6915
+Hexadecimal print time for 10 values (us): 6051
+Binary print time for 10 values (us): 16402
+
+CHARACTER COUNTS
+Decimal characters per println: 7
+Hexadecimal characters per println: 6
+Binary characters per println: 18
+
+THEORETICAL SERIAL TIMING
+Serial format: 8 data bits, 1 start bit, 1 stop bit
+Theoretical time per character (us): 86.81
+Approximate CPU cycles during one character: 20833.33
+Approximate 32-bit additions during one character: 20.83
+
+END EXPERIMENT 6
+
+
+
+
+
+
+
+
+Prediction: We expect converting numbers to text to take much more time than simple arithmetic operations because formatting a number requires multiple processing steps. We expect float-to-text conversion to be more expensive than integer-to-text conversion. We expect sending a character through Serial at 115200 baud to take much longer than the CPU needs for a single integer addition. We also expect decimal, hexadecimal and binary representations to have different transmission costs because they can require different numbers of characters.

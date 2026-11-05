@@ -1,0 +1,15 @@
+EXPERIMENT 3 - FLOAT vs DOUBLE - SQRT
+CPU Frequency: 240 MHz
+Repetitions: 1000
+
+Trial 1 - Float sqrt: 91.07 cycles/op
+Trial 1 - Double sqrt: 1100.57 cycles/op
+
+Trial 2 - Float sqrt: 88.94 cycles/op
+Trial 2 - Double sqrt: 1093.94 cycles/op
+
+Trial 3 - Float sqrt: 88.90 cycles/op
+Trial 3 - Double sqrt: 1094.92 cycles/op
+
+Final float result: 11.111075
+Final double result: 11.111076
