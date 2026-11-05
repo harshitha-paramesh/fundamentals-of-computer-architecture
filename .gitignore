@@ -1,0 +1,25 @@
+# Arduino build and compilation artifacts
+build/
+*.bin
+*.elf
+*.hex
+*.o
+*.d
+
+# Editor and IDE metadata
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System specific
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Temporary and swap files
+*~
+*.tmp
+*.bak
+*.swp

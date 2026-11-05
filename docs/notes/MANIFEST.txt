@@ -1,0 +1,16 @@
+BIT BY BIT - CATCH THE ROCKET
+FINAL SOURCE MANIFEST
+
+Runnable sketches:
+01_Level0/Level0_to_Level2_Combined.ino
+02_Level1/Level1_Descent_Landing_HistoricalBase.ino
+03_Level2/Level2_Gravity_Apogee_HistoricalBase.ino
+04_Level3/Level3_Deployment_ALT_Runnable.ino
+05_Level4/Level4_Glitches_Runnable.ino
+06_Level5_Final/CatchTheRocket_Level5_Final.ino
+
+Supporting tracker headers:
+official_tracker.h
+practice_tracker_b.h
+
+Historical source archive is separate so Arduino IDE does not concatenate multiple .ino files.

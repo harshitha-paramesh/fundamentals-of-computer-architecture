@@ -1,0 +1,34 @@
+BIT BY BIT - CATCH THE ROCKET
+LEVEL-WISE ARDUINO CODE PACKAGE
+
+HOW TO USE:
+1. Extract this folder.
+2. Do NOT open the parent folder as one Arduino sketch.
+3. Open the .ino file inside the level folder you want.
+4. Each level folder contains only one .ino file, so Arduino IDE will not concatenate
+   multiple sketches.
+5. Keep the tracker header in the same folder as its .ino file.
+6. Board: ESP32 Dev Module.
+7. Serial Monitor: 115200 baud.
+
+LEVELS:
+01_Level0  -> Level 0 to Level 2 combined development sketch
+02_Level1  -> Level 1 historical-base runnable sketch
+03_Level2  -> Level 2 historical-base runnable sketch
+04_Level3  -> Level 3 deployment + ALT runnable reconstruction
+05_Level4  -> Level 4 glitch-handling runnable sketch
+06_Level5_Final -> Final Level 5 submission candidate
+
+IMPORTANT:
+- The final verified Level 5 hardware run was 100000 readings, 99998 valid,
+  2 glitches, 248-byte state, and 10394 worst reading cycles.
+- The final command-latency evidence recorded 368 last-command cycles and
+  8051 worst-command cycles.
+- These numbers are evidence from the tested final run.
+- The runnable Level 5 folder is configured with the supplied Official Tracker
+  for direct Arduino compilation. The final performance screenshot was obtained
+  with the tested adversarial tracker.
+- Do not modify the supplied tracker headers.
+- Historical source files are kept in Archive_Historical_Sources and are not
+  placed beside runnable .ino files, because Arduino would otherwise compile
+  multiple sketches together and cause redefinition errors.

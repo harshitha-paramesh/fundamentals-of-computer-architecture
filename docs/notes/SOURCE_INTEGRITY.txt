@@ -1,0 +1,19 @@
+SOURCE INTEGRITY NOTE
+
+This package is intentionally conservative about source history.
+
+1. The exact final Level 5 source used for the final ESP32 verification is preserved in:
+   Archive_Historical_Sources/Level5_Final_Performance_Exact_Tested_Source.ino.txt
+   It includes adversarial_tracker_1.h. That original header was not present in the files available to this package, so it is NOT fabricated.
+
+2. The runnable Level 5 submission sketch is:
+   06_Level5_Final/CatchTheRocket_Level5_Final.ino
+   It uses the supplied official_tracker.h so it can be opened and compiled directly from this package. Its algorithm and final compliance changes are the same final design, but its tracker selection is different from the adversarial-1 evidence run.
+
+3. The standalone historical Level 3 source was not retained as a separate .ino file. Therefore 04_Level3/Level3_Deployment_ALT_Runnable.ino is explicitly a reconstructed runnable copy of the recorded deployment/ALT implementation, not claimed as the exact historical file.
+
+4. The saved development record retained a combined Level 0-2 sketch rather than three separate final .ino files. The Level 1 and Level 2 folders therefore contain clearly labeled historical-base copies of that combined sketch, not fabricated claims of separate historical source files.
+
+5. Every runnable .ino folder contains only one .ino file, so Arduino IDE will not concatenate multiple sketches and cause redefinition errors.
+
+6. The supplied tracker headers must not be modified.
