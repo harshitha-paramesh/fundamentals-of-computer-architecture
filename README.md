@@ -14,65 +14,68 @@
 
 ## Repository Overview
 
-This repository contains the complete implementation, microarchitectural benchmarks, experimental evidence, and technical documentation for the **Fundamentals of Computer Architecture (FCA)** coursework.
+This repository contains the complete implementation, microarchitectural benchmarks, experimental evidence, and technical reports for the **Fundamentals of Computer Architecture (FCA)** coursework.
 
-The repository is structured into two major projects:
+The repository is organized into two primary projects:
 
 ```mermaid
-graph LR
-    FCA["Fundamentals of Computer Architecture\n(ESP32 Dev Module @ 240 MHz)"]
-    FCA --> P1["Project 1: Catch the Rocket\n• 100K Streaming Telemetry\n• Online Glitch Rejection\n• Least-Squares Regression\n• Worst Reading: 10,394 / 12,000 cycles\n• Bounded State: 248 B"]
-    FCA --> P2["Project 2: The Speed of Numbers\n• Cycle-Accurate Microbenchmarks\n• Native 32-bit vs 8/16-bit ALU Scaling\n• Hardware FPU (Float) vs Software Emulation (Double)\n• Q16.16 Fixed Point & Bit Tricks\n• Real-Time Sensor Latency Budgets"]
+graph TD
+    FCA["Fundamentals of Computer Architecture (FCA)\nESP32 Dev Module @ 240 MHz"]
+    FCA --> P1["1. Catch the Rocket\n(Embedded Real-Time Streaming Ground Station)"]
+    FCA --> P2["2. The Speed of Numbers\n(Microarchitectural Benchmarking & Cycle Profiling)"]
 ```
 
-1. 🚀 **[Catch the Rocket](#1-project-1--catch-the-rocket-streaming-telemetry--flight-estimation):** Real-time streaming ground-station estimation system processing 100,000 altitude telemetry readings in single-pass mode under strict memory ($\le 4\text{ KB}$) and latency ($\le 12,000\text{ cycles}$) constraints.
-2. ⏱️ **[The Speed of Numbers](#2-project-2--the-speed-of-numbers-microarchitectural-benchmarking):** Microarchitectural cycle-level benchmarking investigating the latency and throughput of data types, hardware FPU vs software emulation, bitwise optimizations, fixed-point math, and UART serialization bottlenecks.
+| Order | Project Name | Directory | Primary Focus | Key Performance Result |
+| :---: | :--- | :--- | :--- | :--- |
+| **1st** | 🚀 **Catch the Rocket** | [`catch-the-rocket/`](catch-the-rocket/) | Streaming Telemetry & Least-Squares Trajectory Estimation | Worst reading: **10,394 cycles** ($\le 12,000$ budget), State: **248 B** |
+| **2nd** | ⏱️ **The Speed of Numbers** | [`speed-of-numbers/`](speed-of-numbers/) | Cycle-Level Arithmetic, FPU Scaling & Real-Time Pipeline Latency | Float FPU (**7.01 cycles**) vs Double (**61.00 cycles**), Q16.16 Fixed Point |
 
 ---
 
-## 1. Project 1 — Catch the Rocket (Streaming Telemetry & Flight Estimation)
+## 1. Catch the Rocket (1st Project)
 
-### Overview
-A sounding rocket flight telemetry stream (100,000 readings @ 1 kHz) is analyzed online on the ESP32. Due to strict embedded memory constraints, readings cannot be buffered in RAM. Instead, running mathematical accumulators process each incoming datum in real time.
+🔗 **Project Folder:** [`catch-the-rocket/`](catch-the-rocket/)
 
-- **Streaming Telemetry:** 100,000 total readings, 99,998 valid, 2 sensor glitches.
-- **Working State Memory:** **248 bytes** (Constraint: $\le 4,096\text{ bytes}$, 94% headroom).
-- **Processing Latency:** **10,394 cycles / reading** worst-case (Budget: $\le 12,000\text{ cycles}$, 1,606 cycle margin).
-- **Online Glitch Filter:** Extrapolative linear predictor ($\hat{h}_k = 2h_{k-1} - h_{k-2}$, threshold $20.0\text{ m}$) isolates glitches prior to accumulator updates.
-- **Trajectory Estimation:** Quadratic regression during coast phase ($t \le 8\text{ s}$) yields effective gravity ($g = -2c = 2.0930\text{ m/s}^2$) and apogee ($t = 2.3730\text{ s}, h = 1005.9510\text{ m}$). Linear regression during steady descent ($t \ge 45\text{ s}$) yields terminal velocity ($-2.0005\text{ m/s}$) and touchdown time ($493.3004\text{ s}$).
+### Executive Summary
+**Catch the Rocket** is an embedded real-time ground-station telemetry estimation system implemented on the ESP32. It receives a 100-second flight stream consisting of **100,000 altitude telemetry readings** delivered at 1 kHz (1 reading/ms). 
 
-### Implementation Progression (`src/`)
-- **Level 0:** Base ingestion & 44-byte state structure.
-- **Level 1:** Parachute descent linear regression & touchdown prediction.
-- **Level 2:** Coast ballistics, gravity, and apogee computation.
-- **Level 3:** Parachute deployment detection ($> 15.0\text{ m}$ residual) and arbitrary altitude query (`ALT t`).
-- **Level 4:** Online sensor glitch rejection and robustness against adversarial datasets.
-- **Level 5 (Final):** Cycle-level optimization, clean state structure (248 B), sub-millisecond command latency (`G`, `APOGEE`, `DEPLOY`, `DESCENT`, `LAND`, `ALT`, `GLITCHES`, `STATS`).
+Because buffering all readings in RAM would exceed microcontroller SRAM capacity, the entire ground station operates as a **single-pass streaming estimator**:
+- **Continuous State Memory:** Bounded strictly to **248 bytes** (Limit: $\le 4,096\text{ bytes}$, 94% headroom).
+- **Cycle-Accurate Latency:** Measured worst-case reading processing time is **10,394 CPU cycles** (Hardware budget: $\le 12,000\text{ cycles}$, 1,606 cycle safety margin).
+- **Online Glitch Rejection:** Formulates a linear extrapolation filter ($\hat{h}_k = 2h_{k-1} - h_{k-2}$, threshold $20.0\text{ m}$) that isolates corrupted readings online without hard-coding timestamps.
+- **Flight Parameter Extraction:**
+  - Effective Gravity ($g$): $2.0930\text{ m/s}^2$ derived from quadratic least-squares ($t \le 8\text{ s}$).
+  - Apogee: Time $2.3730\text{ s}$, Height $1005.9510\text{ m}$.
+  - Parachute Deployment: Detected at $t = 8.1980\text{ s}$ via residual departure ($> 15.0\text{ m}$) across 3 consecutive readings.
+  - Descent Velocity & Landing: $v_{\text{descent}} = -2.0005\text{ m/s}$, Touchdown predicted at $493.3004\text{ s}$.
 
-*Full documentation, formulas, and code can be found in [`src/`](src/) and [`results/verified_results.md`](results/verified_results.md).*
+### Implementation Levels (`catch-the-rocket/src/`)
+1. **Level 0:** Baseline telemetry receiver & 44-byte state structure.
+2. **Level 1:** Linear least-squares descent regression & touchdown prediction.
+3. **Level 2:** Quadratic coast ballistics, gravity, and apogee extraction.
+4. **Level 3:** Parachute deployment detection and arbitrary altitude queries (`ALT t`).
+5. **Level 4:** Online glitch rejection and adversarial test profile robustness.
+6. **Level 5 (Final):** Cycle-budget optimization, clean 248-byte state struct, and sub-millisecond command latency (`STATS`, `G`, `APOGEE`, `DEPLOY`, `DESCENT`, `LAND`, `ALT`, `GLITCHES`).
+
+*Read the complete technical specification in [`catch-the-rocket/README.md`](catch-the-rocket/README.md).*
 
 ---
 
-## 2. Project 2 — The Speed of Numbers (Microarchitectural Benchmarking)
+## 2. The Speed of Numbers (2nd Project)
 
-### Overview
-An empirical investigation into processor execution dynamics using the **Predict $\rightarrow$ Measure $\rightarrow$ Explain** methodology on the Xtensa LX6 architecture.
+🔗 **Project Folder:** [`speed-of-numbers/`](speed-of-numbers/)
 
-*Direct folder link:* 📁 **[`speed-of-numbers/`](speed-of-numbers/)**
+### Executive Summary
+**The Speed of Numbers** is an empirical computer architecture study investigating instruction execution latency, arithmetic throughput, compiler optimizations, and peripheral bottlenecks on the Xtensa LX6 microprocessor using the scientific **Predict $\rightarrow$ Measure $\rightarrow$ Explain** methodology.
 
-### Key Experimental Discoveries
-1. **Integer Bit-Width Efficiency:** Native 32-bit integers (`int32_t`) are the fastest (**8.28 cycles**). 8-bit (`int8_t`, 9.28 cycles) and 16-bit (`int16_t`, 10.18 cycles) types incur penalties due to explicit sign-extension (`sext`) instructions.
-2. **Hardware FPU vs Software Emulation:**
-   - Single-precision `float` runs in **7.01 to 8.01 cycles** on the hardware FPU.
-   - Double-precision `double` relies on software emulation routines, running **8× to 15× slower** (Addition: 61.00 cycles, Multiplication: 116.90 cycles, Division: 642.82 cycles, Sqrt: 1,094.92 cycles).
-3. **Bit Tricks vs Arithmetic:**
-   - Replacing division by 8 (`x / 8`) with bit shift (`x >> 3`) yields a **25% speedup** (8.00 $\rightarrow$ 6.00 cycles).
-   - Replacing modulo 16 (`x % 16`) with bit mask (`x & 15`) yields a **40% speedup** (10.00 $\rightarrow$ 6.00 cycles).
-4. **Q16.16 Fixed-Point Arithmetic:** Fixed-point numbers execute at integer latencies with an absolute error of only $6.6 \times 10^{-7}$, providing deterministic performance for systems lacking FPUs.
-5. **Cost of Serialization:** Formatting floats to text (`dtostrf`) costs **6,030 cycles**, and transmitting 1 byte over UART at 115,200 baud costs **~20,833 cycles** ($86.8\ \mu\text{s}$). Serial printing in time-critical loops inevitably violates real-time deadlines.
-6. **Real-Time Sensor Pipeline:** Benchmarked against 10 kHz, 50 kHz, and 100 kHz deadlines. While Float and Integer pipelines easily meet all deadlines (<400 cycles), Double-precision fails at 50 kHz and 100 kHz.
+- **Integer Bit-Width Scaling:** Benchmarking 1,000 additions across integer widths reveals that native 32-bit integers (`int32_t`) are the fastest (**8.28 cycles**). 8-bit (`int8_t`, 9.28 cycles) and 16-bit (`int16_t`, 10.18 cycles) types incur penalties due to required sign/zero extension (`sext`) instructions on 32-bit registers.
+- **Hardware FPU vs Software Emulation:** The single-precision hardware FPU executes `float` operations in single-digit cycles (Add: **7.01 cycles**, Mult: **8.01 cycles**). Double-precision `double` operations are emulated in software and run **8× to 15× slower** (Add: 61.00 cycles, Mult: 116.90 cycles, Div: 642.82 cycles, Sqrt: 1,094.92 cycles).
+- **Bit Manipulation vs Arithmetic:** Bit shifts (`x >> 3`, 6.00 cycles) outperform division (`x / 8`, 8.00 cycles) by **25%**, and bit masking (`x & 15`, 6.00 cycles) outperforms modulo (`x % 16`, 10.00 cycles) by **40%**.
+- **Fixed-Point Q16.16:** Employs integer arithmetic to achieve floating-point resolution with integer execution speed and an absolute error of only $6.6 \times 10^{-7}$.
+- **Serialization & Print Overhead:** Text formatting (`dtostrf`) costs **6,030 cycles**, while transmitting 1 byte over UART at 115,200 baud consumes **~20,833 cycles** ($86.8\ \mu\text{s}$), demonstrating why serial I/O must never run inside time-critical control loops.
+- **Real-Time Sensor Pipeline:** A multi-stage digital filter pipeline benchmarked against strict sampling deadlines: Integer (~220 cycles) and Float (~380 cycles) easily meet 10 kHz, 50 kHz, and 100 kHz deadlines, whereas Double (~3,450 cycles) fails 50 kHz and 100 kHz.
 
-*Full benchmark breakdown, tables, and reports can be found in [`speed-of-numbers/README.md`](speed-of-numbers/README.md).*
+*Read the complete experimental results in [`speed-of-numbers/README.md`](speed-of-numbers/README.md).*
 
 ---
 
@@ -80,49 +83,37 @@ An empirical investigation into processor execution dynamics using the **Predict
 
 ```text
 fundamentals-of-computer-architecture/
-├── README.md                                          # Master repository portfolio documentation
+├── README.md                                          # Master repository portfolio index
 ├── .gitignore                                         # Build outputs, IDE metadata, and OS ignore patterns
 │
-├── src/                                               # Project 1: Catch the Rocket Arduino sketches
-│   ├── level-0/Level0_to_Level2_Combined/
-│   ├── level-1/Level1_Descent_Landing_HistoricalBase/
-│   ├── level-2/Level2_Gravity_Apogee_HistoricalBase/
-│   ├── level-3/Level3_Deployment_ALT_Runnable/
-│   ├── level-4/Level4_Glitches_Runnable/
-│   └── level-5-final/CatchTheRocket_Level5_Final/
+├── catch-the-rocket/                                  # 1st: Catch the Rocket Ground Station
+│   ├── README.md                                      # Project documentation & mathematical derivation
+│   ├── src/                                           # Standalone sketches (Levels 0 to 5 Final)
+│   │   ├── level-0/Level0_to_Level2_Combined/
+│   │   ├── level-1/Level1_Descent_Landing_HistoricalBase/
+│   │   ├── level-2/Level2_Gravity_Apogee_HistoricalBase/
+│   │   ├── level-3/Level3_Deployment_ALT_Runnable/
+│   │   ├── level-4/Level4_Glitches_Runnable/
+│   │   └── level-5-final/CatchTheRocket_Level5_Final/
+│   ├── trackers/                                      # Simulated telemetry generator headers
+│   ├── docs/                                          # Course reports and source integrity notes
+│   ├── results/                                       # Verified physical ESP32 measurements
+│   ├── screenshots/                                   # Serial Monitor verification screenshots
+│   └── archive/                                       # Historical and adversarial test sources
 │
-├── trackers/                                          # Simulated flight telemetry generators
-│   ├── official_tracker.h
-│   └── practice_tracker_b.h
-│
-├── docs/                                              # Project 1 reports and integrity manifests
-│   ├── checkpoint/Checkpoint_Level0_to_Level2.docx
-│   ├── level-3/Level3_Final_Report.docx
-│   ├── level-4/Level4_Final_Report.docx
-│   ├── level-5-final/Level5_Final_Report.docx
-│   └── notes/
-│
-├── results/                                           # Project 1 hardware benchmark verification
-│   └── verified_results.md
-│
-├── screenshots/                                       # Project 1 Serial Monitor hardware proof
-│   └── final/Final_Level5_SerialMonitor.png
-│
-├── archive/                                           # Project 1 historical and adversarial test sources
-│
-└── speed-of-numbers/                                  # Project 2: Microarchitectural Profiling Suite
-    ├── README.md                                      # Comprehensive documentation for Speed of Numbers
-    ├── code/                                          # Arduino sketches for all 6 experiments & challenge
-    │   ├── exp_1/                                     # Integer addition & stopwatch calibration
+└── speed-of-numbers/                                  # 2nd: Speed of Numbers Microbenchmarks
+    ├── README.md                                      # Project documentation & experimental findings
+    ├── code/                                          # Standalone sketches (Experiments 1 to 6 & Challenge)
+    │   ├── exp_1/                                     # 32-bit addition & stopwatch calibration
     │   ├── exp_2/                                     # Data type widths (int8, int16, int32, int64)
-    │   ├── exp_3/                                     # Float vs Double operations (FPU analysis)
-    │   ├── exp_4/                                     # Bit tricks vs arithmetic operators & assembly
+    │   ├── exp_3/                                     # Float vs Double operations (FPU benchmarking)
+    │   ├── exp_4/                                     # Bit tricks vs arithmetic & assembly analysis
     │   ├── exp_5/                                     # Q16.16 fixed-point arithmetic
-    │   ├── exp_6/                                     # Text formatting & Serial UART communication
-    │   └── final_challenge/                           # Real-time sensor processing pipeline
+    │   ├── exp_6/                                     # Text formatting & UART serial overhead
+    │   └── final_challenge/                           # Real-time sensor processing pipelines
     ├── raw_output/                                    # Serial Monitor benchmark captures from ESP32
-    ├── reports/                                       # Word research reports for each experiment
-    └── results/                                       # Consolidated benchmark summaries
+    ├── reports/                                       # Academic research reports for each experiment
+    └── results/                                       # Consolidated benchmark tables
         └── benchmarks_summary.md
 ```
 
@@ -141,14 +132,15 @@ fundamentals-of-computer-architecture/
 
 ---
 
-## How to Run the Sketches
+## How to Open and Run
 
-1. Open any sketch folder in Arduino IDE:
-   - For *Catch the Rocket*: Open `src/level-5-final/CatchTheRocket_Level5_Final/CatchTheRocket_Level5_Final.ino`.
-   - For *The Speed of Numbers*: Open any experiment, e.g., `speed-of-numbers/code/exp_3/Experiment_03_Addition/Experiment_03_Addition.ino`.
-2. Connect your ESP32 via USB and select the appropriate COM port.
+Each sketch in both projects is organized into its own self-contained sketch folder matching the `.ino` filename:
+1. Open the `.ino` sketch inside the target project:
+   - *Catch the Rocket:* Open `catch-the-rocket/src/level-5-final/CatchTheRocket_Level5_Final/CatchTheRocket_Level5_Final.ino`.
+   - *Speed of Numbers:* Open `speed-of-numbers/code/exp_3/Experiment_03_Addition/Experiment_03_Addition.ino`.
+2. Select your ESP32 board and COM port in the Arduino IDE.
 3. Click **Upload** ($\rightarrow$).
-4. Open the **Serial Monitor** set to **115200 baud** and press the **EN / RST** button on the ESP32.
+4. Open the **Serial Monitor** at **115200 baud** and press the **EN / RST** button on the ESP32.
 
 ---
 
