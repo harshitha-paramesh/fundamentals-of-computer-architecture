@@ -141,7 +141,7 @@ flowchart LR
 ---
 
 ### Experiment 5: Fixed-Point Arithmetic (Q16.16)
-- **Code:** 📁 [`code/exp_5/Experiment_05.ino`](code/exp_5/Experiment_05.ino)
+- **Code:** 📁 [`code/exp_5/Experiment_05/Experiment_05.ino`](code/exp_5/Experiment_05/Experiment_05.ino)
 - **Aim:** Implement and benchmark Q16.16 fixed-point arithmetic (16-bit integer, 16-bit fractional component) as an alternative to floating point.
 - **Results:**
   - Addition and subtraction run at raw integer speeds.
@@ -153,7 +153,7 @@ flowchart LR
 ---
 
 ### Experiment 6: Hidden Costs of Formatting & Serial Transmission
-- **Code:** 📁 [`code/exp_6/Experiment_06.ino`](code/exp_6/Experiment_06.ino)
+- **Code:** 📁 [`code/exp_6/Experiment_06/Experiment_06.ino`](code/exp_6/Experiment_06/Experiment_06.ino)
 - **Aim:** Measure the microarchitectural cost of number-to-string conversion (`itoa`, `dtostrf`) and UART transmission.
 - **Results:**
   - Integer conversion to ASCII (`itoa`): **1,934 cycles** ($8.06\ \mu\text{s}$).
@@ -223,9 +223,11 @@ speed-of-numbers/
 │   │   ├── Experiment_04_Bit_Tricks/
 │   │   └── assembly.txt                               # Xtensa LX6 disassembly analysis
 │   ├── exp_5/
-│   │   └── Experiment_05.ino                          # Q16.16 fixed-point implementation
+│   │   └── Experiment_05/
+│   │       └── Experiment_05.ino                      # Q16.16 fixed-point implementation
 │   ├── exp_6/
-│   │   └── Experiment_06.ino                          # Hidden cost of formatting & Serial UART
+│   │   └── Experiment_06/
+│   │       └── Experiment_06.ino                      # Hidden cost of formatting & Serial UART
 │   └── final_challenge/                               # Real-time sensor processing pipeline
 │       ├── Final_challenge/
 │       └── final_challenge_corrected/

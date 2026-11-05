@@ -121,7 +121,9 @@ fundamentals-of-computer-architecture/
     │   ├── exp_3/                                     # Float vs Double operations (FPU benchmarking)
     │   ├── exp_4/                                     # Bit tricks vs arithmetic & assembly analysis
     │   ├── exp_5/                                     # Q16.16 fixed-point arithmetic
+    │   │   └── Experiment_05/
     │   ├── exp_6/                                     # Text formatting & UART serial overhead
+    │   │   └── Experiment_06/
     │   └── final_challenge/                           # Real-time sensor processing pipelines
     ├── raw_output/                                    # Serial Monitor benchmark captures from ESP32
     ├── reports/                                       # Academic research reports for each experiment
