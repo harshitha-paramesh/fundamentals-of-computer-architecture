@@ -16,14 +16,13 @@
 
 | Component | Direct Folder Link | What is Inside |
 | :--- | :--- | :--- |
-| **All Source Code** | 📁 [**`code/`**](code/) | All Arduino sketches (`.ino`) for Experiments 1 through 6 & Final Challenge |
-| **Experiment 1 Code** | 📁 [**`code/exp_1/`**](code/exp_1/) | `Experiment_01.ino`, 10 Repetitions, Non-Volatile, Volatile tests |
-| **Experiment 2 Code** | 📁 [**`code/exp_2/`**](code/exp_2/) | `Experiment_02.ino` (int8, int16, int32, int64 tests) |
-| **Experiment 3 Code** | 📁 [**`code/exp_3/`**](code/exp_3/) | Float vs Double: Addition, Division, Literal, Multiplication, Sqrt |
-| **Experiment 4 Code** | 📁 [**`code/exp_4/`**](code/exp_4/) | `Experiment_04_Bit_Tricks.ino` & `assembly.txt` |
-| **Experiment 5 Code** | 📁 [**`code/exp_5/`**](code/exp_5/) | `Experiment_05.ino` (Q16.16 Fixed Point) |
-| **Experiment 6 Code** | 📁 [**`code/exp_6/`**](code/exp_6/) | `Experiment_06.ino` (Number formatting & UART overhead) |
-| **Final Challenge Code** | 📁 [**`code/final_challenge/`**](code/final_challenge/) | `Final_challenge.ino` & `final_challenge_corrected.ino` |
+| **Experiment 1** | 📁 [**`exp_1/`**](exp_1/) | `Experiment_01.ino`, 10 Repetitions, Non-Volatile, Volatile tests |
+| **Experiment 2** | 📁 [**`exp_2/`**](exp_2/) | `Experiment_02.ino` (int8, int16, int32, int64 tests) |
+| **Experiment 3** | 📁 [**`exp_3/`**](exp_3/) | Float vs Double: Addition, Division, Literal, Multiplication, Sqrt |
+| **Experiment 4** | 📁 [**`exp_4/`**](exp_4/) | `Experiment_04_Bit_Tricks.ino` & `assembly.txt` |
+| **Experiment 5** | 📁 [**`exp_5/`**](exp_5/) | `Experiment_05.ino` (Q16.16 Fixed Point) |
+| **Experiment 6** | 📁 [**`exp_6/`**](exp_6/) | `Experiment_06.ino` (Number formatting & UART overhead) |
+| **Final Challenge** | 📁 [**`final_challenge/`**](final_challenge/) | `Final_challenge.ino` & `final_challenge_corrected.ino` |
 | **Raw Serial Captures** | 📁 [**`raw_output/`**](raw_output/) | All 12 raw Serial Monitor text files from ESP32 |
 | **Research Reports** | 📁 [**`reports/`**](reports/) | All 8 academic research Word `.docx` documents |
 | **Benchmark Tables** | 📄 [**`results/benchmarks_summary.md`**](results/benchmarks_summary.md) | Full consolidated hardware cycle measurement table |
@@ -94,7 +93,7 @@ flowchart LR
 ## Experiment Breakdown & Key Findings
 
 ### Experiment 1: 32-Bit Integer Addition & Stopwatch Calibration
-- **Code:** 📁 [`code/exp_1/Experiment_01/Experiment_01.ino`](code/exp_1/Experiment_01/Experiment_01.ino)
+- **Code:** 📁 [`exp_1/Experiment_01/Experiment_01.ino`](exp_1/Experiment_01/Experiment_01.ino)
 - **Aim:** Build a trustworthy cycle-counting benchmark and determine the cost of a 32-bit integer addition.
 - **Method:** Evaluated 1,000 repetitions vs. 10 repetitions, with volatile vs. non-volatile qualifiers. Empty-loop baseline (4,999 cycles) was subtracted.
 - **Results:**
@@ -106,7 +105,7 @@ flowchart LR
 ---
 
 ### Experiment 2: Data Type Widths — Is Smaller Faster?
-- **Code:** 📁 [`code/exp_2/Experiment_02/Experiment_02.ino`](code/exp_2/Experiment_02/Experiment_02.ino)
+- **Code:** 📁 [`exp_2/Experiment_02/Experiment_02.ino`](exp_2/Experiment_02/Experiment_02.ino)
 - **Aim:** Determine whether smaller integer types (`int8_t`, `int16_t`) execute faster than native `int32_t`.
 - **Results:**
   - `int32_t`: **8.28 cycles / op** (Fastest)
@@ -117,7 +116,7 @@ flowchart LR
 ---
 
 ### Experiment 3: Floating-Point Arithmetic — Hardware FPU vs Software Emulation
-- **Code Folder:** 📁 [`code/exp_3/`](code/exp_3/) (Includes Addition, Division, Literal, Multiplication, Sqrt)
+- **Code Folder:** 📁 [`exp_3/`](exp_3/) (Includes Addition, Division, Literal, Multiplication, Sqrt)
 - **Aim:** Quantify the execution penalty of double-precision (`double`) over hardware-accelerated single-precision (`float`).
 - **Results:**
   - **Addition:** Float = **7.01 cycles** vs. Double = **61.00 cycles** (**8.7× slower**)
@@ -130,7 +129,7 @@ flowchart LR
 ---
 
 ### Experiment 4: Bit Tricks vs Arithmetic Operators
-- **Code:** 📁 [`code/exp_4/Experiment_04_Bit_Tricks/Experiment_04_Bit_Tricks.ino`](code/exp_4/Experiment_04_Bit_Tricks/Experiment_04_Bit_Tricks.ino) | Disassembly: [`code/exp_4/assembly.txt`](code/exp_4/assembly.txt)
+- **Code:** 📁 [`exp_4/Experiment_04_Bit_Tricks/Experiment_04_Bit_Tricks.ino`](exp_4/Experiment_04_Bit_Tricks/Experiment_04_Bit_Tricks.ino) | Disassembly: [`exp_4/assembly.txt`](exp_4/assembly.txt)
 - **Aim:** Test whether replacing division and modulo with shifts and bitwise masks improves throughput.
 - **Results:**
   - `x / 8` (**8.00 cycles**) vs. `x >> 3` (**6.00 cycles**) $\rightarrow$ **25% performance improvement**.
@@ -141,7 +140,7 @@ flowchart LR
 ---
 
 ### Experiment 5: Fixed-Point Arithmetic (Q16.16)
-- **Code:** 📁 [`code/exp_5/Experiment_05/Experiment_05.ino`](code/exp_5/Experiment_05/Experiment_05.ino)
+- **Code:** 📁 [`exp_5/Experiment_05/Experiment_05.ino`](exp_5/Experiment_05/Experiment_05.ino)
 - **Aim:** Implement and benchmark Q16.16 fixed-point arithmetic (16-bit integer, 16-bit fractional component) as an alternative to floating point.
 - **Results:**
   - Addition and subtraction run at raw integer speeds.
@@ -153,7 +152,7 @@ flowchart LR
 ---
 
 ### Experiment 6: Hidden Costs of Formatting & Serial Transmission
-- **Code:** 📁 [`code/exp_6/Experiment_06/Experiment_06.ino`](code/exp_6/Experiment_06/Experiment_06.ino)
+- **Code:** 📁 [`exp_6/Experiment_06/Experiment_06.ino`](exp_6/Experiment_06/Experiment_06.ino)
 - **Aim:** Measure the microarchitectural cost of number-to-string conversion (`itoa`, `dtostrf`) and UART transmission.
 - **Results:**
   - Integer conversion to ASCII (`itoa`): **1,934 cycles** ($8.06\ \mu\text{s}$).
@@ -164,7 +163,7 @@ flowchart LR
 ---
 
 ### Final Challenge: Real-Time Sensor Processing Pipeline
-- **Code:** 📁 [`code/final_challenge/`](code/final_challenge/)
+- **Code:** 📁 [`final_challenge/`](final_challenge/)
 - **Aim:** Evaluate a full multi-stage sensor filter pipeline across Double, Float, and Integer implementations against strict sample-rate budgets:
   - **10 kHz Target:** 24,000 cycles budget ($100\ \mu\text{s}$)
   - **50 kHz Target:** 4,800 cycles budget ($20\ \mu\text{s}$)
@@ -202,35 +201,34 @@ speed-of-numbers/
 ├── README.md                                          # Master documentation for Speed of Numbers
 ├── Team_Numerix_report.docx                           # Consolidated master research report
 │
-├── code/                                              # Runnable Arduino sketches
-│   ├── exp_1/
-│   │   ├── Experiment_01/                             # Benchmark stopwatch & 32-bit addition
-│   │   │   └── Experiment_01.ino
-│   │   └── test_versions/                             # 10 repetitions, volatile & non-volatile tests
-│   │       ├── Experiment_01_10_Repetitions_Test/
-│   │       ├── Experiment_01_NonVolatile_Test/
-│   │       └── Experiment_01_Volatile_Test/
-│   ├── exp_2/
-│   │   └── Experiment_02/                             # Data type width scaling (int8, int16, int32, int64)
-│   │       └── Experiment_02.ino
-│   ├── exp_3/                                         # Float vs Double operations
-│   │   ├── Experiment_03_Addition/
-│   │   ├── Experiment_03_Division/
-│   │   ├── Experiment_03_Literal/
-│   │   ├── Experiment_03_Multiplication/
-│   │   └── Experiment_03_Sqrt/
-│   ├── exp_4/                                         # Bit tricks vs arithmetic operators
-│   │   ├── Experiment_04_Bit_Tricks/
-│   │   └── assembly.txt                               # Xtensa LX6 disassembly analysis
-│   ├── exp_5/
-│   │   └── Experiment_05/
-│   │       └── Experiment_05.ino                      # Q16.16 fixed-point implementation
-│   ├── exp_6/
-│   │   └── Experiment_06/
-│   │       └── Experiment_06.ino                      # Hidden cost of formatting & Serial UART
-│   └── final_challenge/                               # Real-time sensor processing pipeline
-│       ├── Final_challenge/
-│       └── final_challenge_corrected/
+├── exp_1/                                             # Experiment 1: 32-bit integer addition
+│   ├── Experiment_01/
+│   │   └── Experiment_01.ino
+│   └── test_versions/
+│       ├── Experiment_01_10_Repetitions_Test/
+│       ├── Experiment_01_NonVolatile_Test/
+│       └── Experiment_01_Volatile_Test/
+├── exp_2/                                             # Experiment 2: Data type widths (int8, int16, int32, int64)
+│   └── Experiment_02/
+│       └── Experiment_02.ino
+├── exp_3/                                             # Experiment 3: Float vs Double arithmetic
+│   ├── Experiment_03_Addition/
+│   ├── Experiment_03_Division/
+│   ├── Experiment_03_Literal/
+│   ├── Experiment_03_Multiplication/
+│   └── Experiment_03_Sqrt/
+├── exp_4/                                             # Experiment 4: Bit tricks vs arithmetic operators
+│   ├── Experiment_04_Bit_Tricks/
+│   └── assembly.txt                                   # Xtensa LX6 disassembly analysis
+├── exp_5/                                             # Experiment 5: Q16.16 fixed-point arithmetic
+│   └── Experiment_05/
+│       └── Experiment_05.ino
+├── exp_6/                                             # Experiment 6: Hidden cost of formatting & Serial UART
+│   └── Experiment_06/
+│       └── Experiment_06.ino
+├── final_challenge/                                   # Real-time sensor processing pipelines
+│   ├── Final_challenge/
+│   └── final_challenge_corrected/
 │
 ├── raw_output/                                        # Raw Serial Monitor captures from ESP32
 │   ├── Experiment_01_Text Document.txt
@@ -266,7 +264,7 @@ speed-of-numbers/
 ## How to Open, Compile, and Run
 
 1. **Hardware Connection:** Connect the ESP32 Dev Board to your PC via micro-USB.
-2. **Open Sketch:** In Arduino IDE, open any experiment sketch (e.g., `code/exp_3/Experiment_03_Addition/Experiment_03_Addition.ino`).
+2. **Open Sketch:** In Arduino IDE, open any experiment sketch directly (e.g., `exp_3/Experiment_03_Addition/Experiment_03_Addition.ino`).
 3. **Configure Board:**
    - **Board:** `ESP32 Dev Module`
    - **CPU Frequency:** `240MHz (WiFi/BT)`
