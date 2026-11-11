@@ -48,4 +48,4 @@ The final verification was captured on the Arduino Serial Monitor connected to t
 
 - **Serial Port:** COM5
 - **Baud Rate:** 115200
-- **Screenshot Artifact:** `screenshots/final/Final_Level5_SerialMonitor.png`
+- **Screenshot Artifact:** `Final_Level5_SerialMonitor.png` (also viewable in this directory)
