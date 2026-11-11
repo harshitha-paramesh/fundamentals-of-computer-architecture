@@ -50,12 +50,13 @@ Because buffering all readings in RAM would exceed microcontroller SRAM capacity
   - Descent Velocity & Landing: $v_{\text{descent}} = -2.0005\text{ m/s}$, Touchdown predicted at $493.3004\text{ s}$.
 
 ### Implementation Progression (`catch-the-rocket/`)
-- 📁 [**`level-0/`**](catch-the-rocket/level-0/): Baseline telemetry receiver & 44-byte state structure.
-- 📁 [**`level-1/`**](catch-the-rocket/level-1/): Linear least-squares descent regression & touchdown prediction.
-- 📁 [**`level-2/`**](catch-the-rocket/level-2/): Quadratic coast ballistics, gravity, and apogee extraction.
-- 📁 [**`level-3/`**](catch-the-rocket/level-3/): Parachute deployment detection and arbitrary altitude queries (`ALT t`).
-- 📁 [**`level-4/`**](catch-the-rocket/level-4/): Online glitch rejection and adversarial test profile robustness.
-- 📁 [**`level-5-final/`**](catch-the-rocket/level-5-final/): Cycle-budget optimization, clean 248-byte state struct, and sub-millisecond command latency (`STATS`, `G`, `APOGEE`, `DEPLOY`, `DESCENT`, `LAND`, `ALT`, `GLITCHES`).
+- 📁 [**`codes/level-0/`**](catch-the-rocket/codes/level-0/): Baseline telemetry receiver & 44-byte state structure.
+- 📁 [**`codes/level-1/`**](catch-the-rocket/codes/level-1/): Linear least-squares descent regression & touchdown prediction.
+- 📁 [**`codes/level-2/`**](catch-the-rocket/codes/level-2/): Quadratic coast ballistics, gravity, and apogee extraction.
+- 📁 [**`codes/level-3/`**](catch-the-rocket/codes/level-3/): Parachute deployment detection and arbitrary altitude queries (`ALT t`).
+- 📁 [**`codes/level-4/`**](catch-the-rocket/codes/level-4/): Online glitch rejection and adversarial test profile robustness.
+- 📁 [**`codes/level-5-final/`**](catch-the-rocket/codes/level-5-final/): Cycle-budget optimization, clean 248-byte state struct, and sub-millisecond command latency (`STATS`, `G`, `APOGEE`, `DEPLOY`, `DESCENT`, `LAND`, `ALT`, `GLITCHES`).
+- 📸 [**`preview/`**](catch-the-rocket/preview/): Hardware verification screenshot and verified measurements.
 
 *Read the complete technical specification in [`catch-the-rocket/README.md`](catch-the-rocket/README.md).*
 
@@ -76,14 +77,14 @@ Because buffering all readings in RAM would exceed microcontroller SRAM capacity
 - **Real-Time Sensor Pipeline:** A multi-stage digital filter pipeline benchmarked against strict sampling deadlines: Integer (~220 cycles) and Float (~380 cycles) easily meet 10 kHz, 50 kHz, and 100 kHz deadlines, whereas Double (~3,450 cycles) fails 50 kHz and 100 kHz.
 
 ### Code & Experiment Navigator (`speed-of-numbers/`)
-- 📁 [**`exp_1/`**](speed-of-numbers/exp_1/): 32-bit addition, 10 vs 1000 repetitions, volatile vs non-volatile benchmarks.
-- 📁 [**`exp_2/`**](speed-of-numbers/exp_2/): Integer width comparisons (`int8_t`, `int16_t`, `int32_t`, `int64_t`).
-- 📁 [**`exp_3/`**](speed-of-numbers/exp_3/): Single-precision FPU vs double-precision software emulation (Addition, Division, Literal, Multiplication, Sqrt).
-- 📁 [**`exp_4/`**](speed-of-numbers/exp_4/): Bit tricks vs arithmetic operators & Xtensa LX6 disassembly analysis.
-- 📁 [**`exp_5/`**](speed-of-numbers/exp_5/): Q16.16 fixed-point arithmetic implementation.
-- 📁 [**`exp_6/`**](speed-of-numbers/exp_6/): Hidden costs of text formatting (`itoa`, `dtostrf`) & Serial UART transmission.
-- 📁 [**`final_challenge/`**](speed-of-numbers/final_challenge/): Real-time multi-stage sensor pipeline implementations.
-- 📁 [**`raw_output/`**](speed-of-numbers/raw_output/): All raw Serial Monitor logs collected from the ESP32.
+- 📁 [**`codes/exp_1/`**](speed-of-numbers/codes/exp_1/): 32-bit addition, 10 vs 1000 repetitions, volatile vs non-volatile benchmarks.
+- 📁 [**`codes/exp_2/`**](speed-of-numbers/codes/exp_2/): Integer width comparisons (`int8_t`, `int16_t`, `int32_t`, `int64_t`).
+- 📁 [**`codes/exp_3/`**](speed-of-numbers/codes/exp_3/): Single-precision FPU vs double-precision software emulation (Addition, Division, Literal, Multiplication, Sqrt).
+- 📁 [**`codes/exp_4/`**](speed-of-numbers/codes/exp_4/): Bit tricks vs arithmetic operators & Xtensa LX6 disassembly analysis.
+- 📁 [**`codes/exp_5/`**](speed-of-numbers/codes/exp_5/): Q16.16 fixed-point arithmetic implementation.
+- 📁 [**`codes/exp_6/`**](speed-of-numbers/codes/exp_6/): Hidden costs of text formatting (`itoa`, `dtostrf`) & Serial UART transmission.
+- 📁 [**`codes/final_challenge/`**](speed-of-numbers/codes/final_challenge/): Real-time multi-stage sensor pipeline implementations.
+- 📸 [**`preview/`**](speed-of-numbers/preview/): All raw Serial Monitor logs collected from the ESP32.
 - 📁 [**`reports/`**](speed-of-numbers/reports/): Complete academic research Word reports.
 
 *Read the complete experimental results in [`speed-of-numbers/README.md`](speed-of-numbers/README.md).*
@@ -99,29 +100,40 @@ fundamentals-of-computer-architecture/
 │
 ├── catch-the-rocket/                                  # 1st: Catch the Rocket Ground Station
 │   ├── README.md                                      # Project documentation & mathematical derivation
-│   ├── level-0/Level0_to_Level2_Combined/             # Baseline telemetry ingestion
-│   ├── level-1/Level1_Descent_Landing_HistoricalBase/ # Linear descent & touchdown
-│   ├── level-2/Level2_Gravity_Apogee_HistoricalBase/  # Quadratic coast, G & apogee
-│   ├── level-3/Level3_Deployment_ALT_Runnable/        # Deployment detection & ALT query
-│   ├── level-4/Level4_Glitches_Runnable/              # Online glitch filtering
-│   ├── level-5-final/CatchTheRocket_Level5_Final/     # Final cycle-budget optimized code
+│   ├── codes/                                         # Level-wise Arduino sketches
+│   │   ├── level-0/Level0_to_Level2_Combined/         # Baseline telemetry ingestion
+│   │   ├── level-1/Level1_Descent_Landing_HistoricalBase/ # Linear descent & touchdown
+│   │   ├── level-2/Level2_Gravity_Apogee_HistoricalBase/  # Quadratic coast, G & apogee
+│   │   ├── level-3/Level3_Deployment_ALT_Runnable/    # Deployment detection & ALT query
+│   │   ├── level-4/Level4_Glitches_Runnable/          # Online glitch filtering
+│   │   └── level-5-final/CatchTheRocket_Level5_Final/ # Final cycle-budget optimized code
+│   ├── preview/                                       # Hardware evidence & verified results
+│   │   ├── Final_Level5_SerialMonitor.png             # Serial Monitor verification screenshot
+│   │   └── verified_results.md                        # Verified physical ESP32 measurements
 │   ├── trackers/                                      # Simulated telemetry generator headers
 │   ├── docs/                                          # Course reports and source integrity notes
-│   ├── results/                                       # Verified physical ESP32 measurements
-│   ├── screenshots/                                   # Serial Monitor verification screenshots
 │   └── archive/                                       # Historical and adversarial test sources
 │
 └── speed-of-numbers/                                  # 2nd: Speed of Numbers Microbenchmarks
     ├── README.md                                      # Project documentation & experimental findings
     ├── Team_Numerix_report.docx                       # Consolidated master research report
-    ├── exp_1/                                         # 32-bit addition & stopwatch calibration
-    ├── exp_2/                                         # Data type widths (int8, int16, int32, int64)
-    ├── exp_3/                                         # Float vs Double operations (FPU benchmarking)
-    ├── exp_4/                                         # Bit tricks vs arithmetic & assembly analysis
-    ├── exp_5/                                         # Q16.16 fixed-point arithmetic
-    ├── exp_6/                                         # Text formatting & UART serial overhead
-    ├── final_challenge/                               # Real-time sensor processing pipelines
-    ├── raw_output/                                    # Serial Monitor benchmark captures from ESP32
+    ├── codes/                                         # Experiment-wise Arduino sketches
+    │   ├── exp_1/                                     # 32-bit addition & stopwatch calibration
+    │   ├── exp_2/                                     # Data type widths (int8, int16, int32, int64)
+    │   ├── exp_3/                                     # Float vs Double operations (FPU benchmarking)
+    │   ├── exp_4/                                     # Bit tricks vs arithmetic & assembly analysis
+    │   ├── exp_5/                                     # Q16.16 fixed-point arithmetic
+    │   ├── exp_6/                                     # Text formatting & UART serial overhead
+    │   └── final_challenge/                           # Real-time sensor processing pipelines
+    ├── preview/                                       # Serial Monitor benchmark captures from ESP32
+    │   ├── Experiment_01_Text Document.txt
+    │   ├── Experiment_02_Text Document.txt
+    │   ├── Experiment_04_Text Document.txt
+    │   ├── Experiment_05_Text Document.txt
+    │   ├── Experiment_06_Text Document.txt
+    │   ├── final_challenge_Text Document.txt
+    │   ├── final_challenge_corrected_Text Document.txt
+    │   └── exp_3_floating_point/
     ├── reports/                                       # Academic research reports for each experiment
     └── results/                                       # Consolidated benchmark tables
         └── benchmarks_summary.md

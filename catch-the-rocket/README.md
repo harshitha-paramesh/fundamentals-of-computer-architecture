@@ -12,6 +12,18 @@
 
 ---
 
+### 🚀 Quick Code & Preview Navigator
+| Level | Arduino Source Code | Focus & Description | Verified Output |
+| :--- | :--- | :--- | :--- |
+| **Level 0** | 📁 [**`codes/level-0/`**](codes/level-0/Level0_to_Level2_Combined/) | Baseline telemetry ingestion & 44-byte state structure | Baseline stats |
+| **Level 1** | 📁 [**`codes/level-1/`**](codes/level-1/Level1_Descent_Landing_HistoricalBase/) | Linear least-squares descent regression & touchdown prediction | Descent results |
+| **Level 2** | 📁 [**`codes/level-2/`**](codes/level-2/Level2_Gravity_Apogee_HistoricalBase/) | Quadratic coast ballistics, gravity ($g = -2c$), apogee | Coast results |
+| **Level 3** | 📁 [**`codes/level-3/`**](codes/level-3/Level3_Deployment_ALT_Runnable/) | Parachute deployment detection & arbitrary altitude query (`ALT t`) | Deployment logs |
+| **Level 4** | 📁 [**`codes/level-4/`**](codes/level-4/Level4_Glitches_Runnable/) | Online extrapolative glitch filtering on adversarial flights | Glitch rejection |
+| **Level 5 (Final)** | 📁 [**`codes/level-5-final/`**](codes/level-5-final/CatchTheRocket_Level5_Final/) | Final cycle-budget optimized code ($\le 12,000$ cycles, 248 B) | 📸 [**`preview/`**](preview/) |
+
+---
+
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
@@ -189,7 +201,7 @@ Measurements captured on physical **ESP32 Dev Module** hardware (COM5, 115200 ba
 
 The final Level 5 verification run output captured from the ESP32 Serial Monitor:
 
-![Final Level 5 Serial Monitor Screenshot](screenshots/final/Final_Level5_SerialMonitor.png)
+![Final Level 5 Serial Monitor Screenshot](preview/Final_Level5_SerialMonitor.png)
 
 ```
 FCA CATCH THE ROCKET
@@ -224,27 +236,32 @@ Worst command cycles - 8051
 catch-the-rocket/
 ├── README.md                                          # Master project documentation
 │
-├── level-0/Level0_to_Level2_Combined/                 # Baseline telemetry ingestion
-│   ├── Level0_to_Level2_Combined.ino
-│   ├── official_tracker.h
-│   └── practice_tracker_b.h
-├── level-1/Level1_Descent_Landing_HistoricalBase/     # Linear descent regression & landing prediction
-│   ├── Level1_Descent_Landing_HistoricalBase.ino
-│   ├── official_tracker.h
-│   └── practice_tracker_b.h
-├── level-2/Level2_Gravity_Apogee_HistoricalBase/      # Quadratic coast regression, G & apogee
-│   ├── Level2_Gravity_Apogee_HistoricalBase.ino
-│   ├── official_tracker.h
-│   └── practice_tracker_b.h
-├── level-3/Level3_Deployment_ALT_Runnable/            # Parachute deployment detection & ALT query
-│   ├── Level3_Deployment_ALT_Runnable.ino
-│   └── official_tracker.h
-├── level-4/Level4_Glitches_Runnable/                  # Online extrapolative glitch filtering
-│   ├── Level4_Glitches_Runnable.ino
-│   └── official_tracker.h
-├── level-5-final/CatchTheRocket_Level5_Final/         # Final cycle-budget optimized implementation
-│   ├── CatchTheRocket_Level5_Final.ino
-│   └── official_tracker.h
+├── codes/                                             # Level-wise Arduino sketches
+│   ├── level-0/Level0_to_Level2_Combined/
+│   │   ├── Level0_to_Level2_Combined.ino
+│   │   ├── official_tracker.h
+│   │   └── practice_tracker_b.h
+│   ├── level-1/Level1_Descent_Landing_HistoricalBase/
+│   │   ├── Level1_Descent_Landing_HistoricalBase.ino
+│   │   ├── official_tracker.h
+│   │   └── practice_tracker_b.h
+│   ├── level-2/Level2_Gravity_Apogee_HistoricalBase/
+│   │   ├── Level2_Gravity_Apogee_HistoricalBase.ino
+│   │   ├── official_tracker.h
+│   │   └── practice_tracker_b.h
+│   ├── level-3/Level3_Deployment_ALT_Runnable/
+│   │   ├── Level3_Deployment_ALT_Runnable.ino
+│   │   └── official_tracker.h
+│   ├── level-4/Level4_Glitches_Runnable/
+│   │   ├── Level4_Glitches_Runnable.ino
+│   │   └── official_tracker.h
+│   └── level-5-final/CatchTheRocket_Level5_Final/
+│       ├── CatchTheRocket_Level5_Final.ino
+│       └── official_tracker.h
+│
+├── preview/                                           # Hardware test evidence & verified results
+│   ├── Final_Level5_SerialMonitor.png
+│   └── verified_results.md
 │
 ├── trackers/                                          # Reusable simulated flight generators
 │   ├── official_tracker.h
@@ -261,12 +278,6 @@ catch-the-rocket/
 │       ├── README_FIRST.txt
 │       └── SOURCE_INTEGRITY.txt
 │
-├── results/                                           # Verified experimental hardware benchmarks
-│   └── verified_results.md
-│
-├── screenshots/                                       # Hardware evidence
-│   └── final/Final_Level5_SerialMonitor.png
-│
 └── archive/                                           # Preserved historical & adversarial test sources
     ├── Historical_Level4_Adversarial1.ino
     ├── Level4_Adversarial1_Historical.txt
@@ -282,7 +293,7 @@ catch-the-rocket/
 ## How to Open, Compile, and Run
 
 1. **Connect Hardware:** Connect the ESP32 Dev Board to your PC via a micro-USB cable.
-2. **Open Arduino IDE:** Open any sketch folder directly (e.g., `level-5-final/CatchTheRocket_Level5_Final/CatchTheRocket_Level5_Final.ino`).
+2. **Open Arduino IDE:** Open any sketch folder directly (e.g., `codes/level-5-final/CatchTheRocket_Level5_Final/CatchTheRocket_Level5_Final.ino`).
 3. **Select Board & Port:**
    - **Board:** `ESP32 Dev Module`
    - **Upload Speed:** `921600` (or `115200`)
